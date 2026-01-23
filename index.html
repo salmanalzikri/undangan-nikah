@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;family=Montserrat:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        /* ===== CSS STYLES ===== */
+        
+        /* Font Families */
+        .font-display {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+        .font-body {
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        
+        /* Color Variables */
+        :root {
+            --color-background: #faf7f2;
+            --color-surface: #ffffff;
+            --color-text: #2d3436;
+            --color-primary: #8b7355;
+            --color-secondary: #c9a87c;
+        }
+        
+        /* Background Gradient */
+        .bg-wedding {
+            background: linear-gradient(135deg, var(--color-background) 0%, #f5efe6 50%, var(--color-background) 100%);
+        }
+        
+        /* Decorative Elements */
+        .ornament {
+            opacity: 0.6;
+        }
+        
+        .ornament-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-secondary), transparent);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-800 { animation-delay: 0.8s; }
+        .delay-1000 { animation-delay: 1s; }
+        
+        /* Card Styles */
+        .card-elegant {
+            background: var(--color-surface);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(139, 115, 85, 0.1);
+            border: 1px solid rgba(201, 168, 124, 0.2);
+        }
+        
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 115, 85, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 115, 85, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-primary);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 2px solid var(--color-primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+        
+        /* Countdown Styles */
+        .countdown-item {
+            background: var(--color-surface);
+            border-radius: 16px;
+            padding: 20px 16px;
+            min-width: 80px;
+            box-shadow: 0 4px 20px rgba(139, 115, 85, 0.1);
+            border: 1px solid rgba(201, 168, 124, 0.2);
+        }
+        
+        /* Section Divider */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 40px 0;
+        }
+        
+        .divider-line {
+            width: 100px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--color-secondary), transparent);
+        }
+        
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--color-background);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-secondary);
+            border-radius: 4px;
+        }
+        
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Heart decoration */
+        .heart-float {
+            position: absolute;
+            color: var(--color-secondary);
+            opacity: 0.3;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 999;
+        }
+
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--color-secondary);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .music-btn:active {
+            transform: scale(0.95);
+        }
+
+        @media (max-width: 640px) {
+            .music-player {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .music-btn {
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
+            }
+        }
+
+        /* Cover Section with Background Photo */
+        #cover-section {
+            background-image: url('photos/couple-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        #cover-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(250, 247, 242, 0.75);
+            z-index: 1;
+        }
+
+        #cover-section > * {
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body class="h-full font-body bg-wedding overflow-auto" style="color: var(--color-text);"><!-- Audio Element -->
+  <audio id="background-music" loop>
+   <source src="music/lagu-undangan.mp3" type="audio/mpeg">
+  </audio><!-- Music Player Button -->
+  <div class="music-player">
+   <button id="music-toggle-btn" class="music-btn" onclick="toggleMusic()" title="Nyalakan Musik">
+    🔊
+   </button>
+  </div><!-- ===== HTML STRUCTURE ===== -->
+  <div id="app-wrapper" class="w-full h-full overflow-auto"><!-- Cover Section -->
+   <section id="cover-section" class="min-h-full flex flex-col items-center justify-center relative px-6 py-12"><!-- Floating Hearts Decoration -->
+    <div class="heart-float top-20 left-10 text-3xl" style="animation-delay: 0s;">
+     💕
+    </div>
+    <div class="heart-float top-40 right-16 text-2xl" style="animation-delay: 2s;">
+     ✨
+    </div>
+    <div class="heart-float bottom-32 left-20 text-2xl" style="animation-delay: 4s;">
+     🌸
+    </div>
+    <div class="text-center animate-fade-in-up max-w-lg"><!-- Ornament Top -->
+     <div class="ornament text-4xl mb-6 animate-float">
+      🕊️
+     </div>
+     <p class="font-body text-sm uppercase tracking-widest mb-2 opacity-70" style="color: var(--color-primary);">The Wedding of</p><!-- Guest Name -->
+     <div class="mb-6">
+      <p class="font-body text-xs uppercase tracking-wider opacity-60 mb-1" style="color: var(--color-primary);">Kepada Yth.</p>
+      <p id="cover-guest-name" class="font-body text-base font-medium" style="color: var(--color-primary);">Bapak/Ibu/Saudara/i</p>
+     </div>
+     <h1 id="cover-names" class="font-display text-5xl md:text-6xl font-bold mb-6 leading-tight" style="color: var(--color-primary);">Ahmad<br><span class="text-3xl md:text-4xl font-normal italic">&amp;</span><br>
+       Siti</h1>
+     <div class="ornament-line w-48 mx-auto my-8"></div>
+     <p id="cover-date" class="font-body text-lg mb-8 opacity-80">Sabtu, 15 Maret 2026</p><button onclick="openInvitation()" class="btn-primary font-body animate-pulse-slow"> Buka Undangan </button>
+    </div>
+   </section><!-- Main Content (Hidden initially) -->
+   <div id="main-content" class="hidden"><!-- Couple Section -->
+    <section class="py-16 px-6">
+     <div class="max-w-2xl mx-auto text-center">
+      <p class="font-body text-sm uppercase tracking-widest mb-4 opacity-70" style="color: var(--color-primary);">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</p>
+      <p id="invitation-message" class="font-body text-base leading-relaxed mb-12 opacity-80">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan acara pernikahan kami</p>
+      <div class="card-elegant p-8 md:p-12"><!-- Groom -->
+       <div class="mb-8">
+        <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4" style="border-color: var(--color-secondary);">
+         <img id="groom-photo" src="photos/groom.jpg" alt="Mempelai Pria" class="w-full h-full object-cover">
+        </div>
+        <h2 id="groom-name" class="font-display text-3xl font-bold mb-2" style="color: var(--color-primary);">Salman Al Zikri, S.Kom.</h2>
+        <p class="font-body text-sm opacity-70">Putra dari Bapak Ramajaya &amp; Ibu IRDA</p>
+       </div><!-- Ampersand -->
+       <div class="text-5xl font-display italic my-6" style="color: var(--color-secondary);">
+        &amp;
+       </div><!-- Bride -->
+       <div>
+        <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4" style="border-color: var(--color-secondary);">
+         <img id="bride-photo" src="photos/bride.jpg" alt="Mempelai Wanita" class="w-full h-full object-cover">
+        </div>
+        <h2 id="bride-name" class="font-display text-3xl font-bold mb-2" style="color: var(--color-primary);">Diva Adellia, S.Pd.</h2>
+        <p class="font-body text-sm opacity-70">Putri dari Bapak H. Abdullah &amp; Ibu Hj. Fatimah</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Divider -->
+    <div class="section-divider">
+     <div class="divider-line"></div><span class="text-2xl">💍</span>
+     <div class="divider-line"></div>
+    </div><!-- Event Details Section -->
+    <section class="py-12 px-6">
+     <div class="max-w-2xl mx-auto">
+      <h3 class="font-display text-3xl text-center font-bold mb-12" style="color: var(--color-primary);">Waktu &amp; Tempat</h3>
+      <div class="grid md:grid-cols-2 gap-6"><!-- Akad Nikah -->
+       <div class="card-elegant p-6 text-center">
+        <div class="text-4xl mb-4">
+         🕌
+        </div>
+        <h4 class="font-display text-2xl font-bold mb-3" style="color: var(--color-primary);">Akad Nikah</h4>
+        <p id="akad-date" class="font-body text-sm mb-2">Sabtu, 15 Maret 2026</p>
+        <p class="font-body text-sm mb-4 opacity-70">Pukul 08:00 - 10:00 WIB</p>
+        <div class="ornament-line w-16 mx-auto my-4"></div>
+        <p id="akad-venue" class="font-body text-sm font-medium">Masjid Al-Ikhlas</p>
+        <p class="font-body text-xs opacity-70 mt-1">Jl. Merdeka No. 123</p>
+       </div><!-- Resepsi -->
+       <div class="card-elegant p-6 text-center">
+        <div class="text-4xl mb-4">
+         🎊
+        </div>
+        <h4 class="font-display text-2xl font-bold mb-3" style="color: var(--color-primary);">Resepsi</h4>
+        <p id="resepsi-date" class="font-body text-sm mb-2">Sabtu, 15 Maret 2026</p>
+        <p id="resepsi-time" class="font-body text-sm mb-4 opacity-70">Pukul 11:00 - 14:00 WIB</p>
+        <div class="ornament-line w-16 mx-auto my-4"></div>
+        <p id="venue-name" class="font-body text-sm font-medium">Gedung Serbaguna Harmoni</p>
+        <p id="venue-address" class="font-body text-xs opacity-70 mt-1">Jl. Kebahagiaan No. 456, Jakarta Selatan</p>
+       </div>
+      </div><!-- Map Button -->
+      <div class="text-center mt-8"><a href="https://goo.gl/maps/VscTW6BpyuFd2mPY9?g_st=aw" target="_blank" rel="noopener noreferrer" class="btn-secondary font-body inline-flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg> Lihat Lokasi </a>
+      </div>
+     </div>
+    </section><!-- Divider -->
+    <div class="section-divider">
+     <div class="divider-line"></div><span class="text-2xl">⏰</span>
+     <div class="divider-line"></div>
+    </div><!-- Countdown Section -->
+    <section class="py-12 px-6">
+     <div class="max-w-2xl mx-auto text-center">
+      <h3 class="font-display text-3xl font-bold mb-8" style="color: var(--color-primary);">Menghitung Hari</h3>
+      <div class="flex justify-center gap-4 flex-wrap">
+       <div class="countdown-item"><span id="countdown-days" class="font-display text-4xl font-bold block" style="color: var(--color-primary);">00</span> <span class="font-body text-xs uppercase tracking-wider opacity-70">Hari</span>
+       </div>
+       <div class="countdown-item"><span id="countdown-hours" class="font-display text-4xl font-bold block" style="color: var(--color-primary);">00</span> <span class="font-body text-xs uppercase tracking-wider opacity-70">Jam</span>
+       </div>
+       <div class="countdown-item"><span id="countdown-minutes" class="font-display text-4xl font-bold block" style="color: var(--color-primary);">00</span> <span class="font-body text-xs uppercase tracking-wider opacity-70">Menit</span>
+       </div>
+       <div class="countdown-item"><span id="countdown-seconds" class="font-display text-4xl font-bold block" style="color: var(--color-primary);">00</span> <span class="font-body text-xs uppercase tracking-wider opacity-70">Detik</span>
+       </div>
+      </div>
+     </div>
+    </section><!-- Divider -->
+    <div class="section-divider">
+     <div class="divider-line"></div><span class="text-2xl">📸</span>
+     <div class="divider-line"></div>
+    </div><!-- Gallery Section -->
+    <section class="py-12 px-6">
+     <div class="max-w-2xl mx-auto">
+      <h3 class="font-display text-3xl text-center font-bold mb-8" style="color: var(--color-primary);">Galeri Kami</h3>
+       <div class="gallery-grid">
+       <img src="photos/salman.jpg" alt="Galeri 1" class="aspect-square rounded-2xl object-cover">
+       <img src="photos/salman2.jpg" alt="Galeri 2" class="aspect-square rounded-2xl object-cover">
+       <img src="photos/salman3.jpg" alt="Galeri 3" class="aspect-square rounded-2xl object-cover">
+       <img src="photos/salman4.jpg" alt="Galeri 4" class="aspect-square rounded-2xl object-cover">
+       <img src="photos/salman5.jpg" alt="Galeri 5" class="aspect-square rounded-2xl object-cover">
+       <img src="photos/couple-background.jpg" alt="Galeri 6" class="aspect-square rounded-2xl object-cover">
+      </div>
+    </section><!-- Divider -->
+    <div class="section-divider">
+     <div class="divider-line"></div><span class="text-2xl">💌</span>
+     <div class="divider-line"></div>
+    </div><!-- RSVP Section -->
+    <section class="py-12 px-6">
+     <div class="max-w-lg mx-auto">
+      <div class="card-elegant p-8">
+       <h3 class="font-display text-3xl text-center font-bold mb-6" style="color: var(--color-primary);">Konfirmasi Kehadiran</h3>
+       <form id="rsvp-form" class="space-y-4">
+        <div><label for="guest-name" class="font-body text-sm font-medium block mb-2">Nama Lengkap</label> <input type="text" id="guest-name" placeholder="Masukkan nama Anda" class="w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 font-body text-sm" style="border-color: rgba(201, 168, 124, 0.3); --tw-ring-color: var(--color-secondary);">
+        </div>
+        <div><label class="font-body text-sm font-medium block mb-3">Konfirmasi Kehadiran</label>
+         <div class="flex gap-4"><label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="attendance" value="hadir" class="w-4 h-4" style="accent-color: var(--color-primary);"> <span class="font-body text-sm">Hadir</span> </label> <label class="flex items-center gap-2 cursor-pointer"> <input type="radio" name="attendance" value="tidak" class="w-4 h-4" style="accent-color: var(--color-primary);"> <span class="font-body text-sm">Tidak Hadir</span> </label>
+         </div>
+        </div>
+        <div><label for="guest-count" class="font-body text-sm font-medium block mb-2">Jumlah Tamu</label> <select id="guest-count" class="w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 font-body text-sm" style="border-color: rgba(201, 168, 124, 0.3); --tw-ring-color: var(--color-secondary);"> <option value="1">1 Orang</option> <option value="2">2 Orang</option> <option value="3">3 Orang</option> <option value="4">4 Orang</option> </select>
+        </div>
+        <div><label for="guest-message" class="font-body text-sm font-medium block mb-2">Ucapan &amp; Doa</label> <textarea id="guest-message" rows="3" placeholder="Tulis ucapan untuk mempelai..." class="w-full px-4 py-3 rounded-xl border focus:outline-none focus:ring-2 font-body text-sm resize-none" style="border-color: rgba(201, 168, 124, 0.3); --tw-ring-color: var(--color-secondary);"></textarea>
+        </div><button type="submit" class="btn-primary w-full font-body"> Kirim Konfirmasi </button>
+       </form><!-- Success Message -->
+       <div id="rsvp-success" class="hidden text-center py-8">
+        <div class="text-5xl mb-4">
+         ✨
+        </div>
+        <h4 class="font-display text-2xl font-bold mb-2" style="color: var(--color-primary);">Terima Kasih!</h4>
+        <p class="font-body text-sm opacity-70">Konfirmasi Anda telah kami terima</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Wishes Display Section -->
+    <section class="py-12 px-6">
+     <div class="max-w-lg mx-auto">
+      <h3 class="font-display text-2xl text-center font-bold mb-6" style="color: var(--color-primary);">Ucapan &amp; Doa</h3>
+      <div id="wishes-container" class="space-y-4 max-h-80 overflow-y-auto"><!-- Sample wishes -->
+       <div class="card-elegant p-4">
+        <p class="font-body text-sm font-medium mb-1">Budi Santoso</p>
+        <p class="font-body text-sm opacity-70">Selamat menempuh hidup baru! Semoga menjadi keluarga yang sakinah, mawaddah, warahmah 🤲</p>
+       </div>
+       <div class="card-elegant p-4">
+        <p class="font-body text-sm font-medium mb-1">Dewi Lestari</p>
+        <p class="font-body text-sm opacity-70">Barakallahu lakuma wa baraka 'alaikuma wa jama'a bainakuma fi khair 💕</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- Footer -->
+    <footer class="py-12 px-6 text-center" style="background: linear-gradient(to top, rgba(201, 168, 124, 0.1), transparent);">
+     <div class="max-w-lg mx-auto">
+      <p class="font-body text-sm opacity-70 mb-4">Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu</p>
+      <div class="ornament-line w-32 mx-auto my-6"></div>
+      <p class="font-display text-2xl italic mb-2" style="color: var(--color-primary);">Wassalamu'alaikum Wr. Wb.</p>
+      <p id="footer-names" class="font-display text-xl font-bold" style="color: var(--color-primary);">Ahmad &amp; Siti</p>
+      <p class="font-body text-xs mt-8 opacity-50">Made with 💕 for our special day</p>
+     </div>
+    </footer>
+   </div>
+  </div><!-- ===== JAVASCRIPT ===== -->
+  <script>
+        // Music Control Functions
+        let isMusicPlaying = false;
+        
+        function toggleMusic() {
+            const audio = document.getElementById('background-music');
+            const btn = document.getElementById('music-toggle-btn');
+            
+            if (isMusicPlaying) {
+                audio.pause();
+                btn.textContent = '🔇';
+                btn.title = 'Nyalakan Musik';
+                isMusicPlaying = false;
+            } else {
+                audio.play().catch(error => {
+                    console.log('Musik belum tersedia atau belum dimulai');
+                });
+                btn.textContent = '🔊';
+                btn.title = 'Matikan Musik';
+                isMusicPlaying = true;
+            }
+        }
+
+        // Auto-start music when user interacts
+        document.addEventListener('click', function autoStartMusic() {
+            const audio = document.getElementById('background-music');
+            if (!isMusicPlaying && audio) {
+                audio.play().catch(error => {
+                    // Musik tidak bisa dimainkan otomatis
+                });
+                document.removeEventListener('click', autoStartMusic);
+            }
+        }, { once: true });
+
+        // Get guest name from URL parameter
+        function getGuestNameFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const nameParam = urlParams.get('nama') || urlParams.get('name');
+            if (nameParam) {
+                // Decode and format the name
+                return decodeURIComponent(nameParam);
+            }
+            return null;
+        }
+        
+        // Default Configuration
+        const defaultConfig = {
+            // Colors
+            background_color: '#faf7f2',
+            surface_color: '#ffffff',
+            text_color: '#2d3436',
+            primary_color: '#8b7355',
+            secondary_color: '#c9a87c',
+            // Fonts
+            font_family: 'Cormorant Garamond',
+            font_size: 16,
+            // Content
+            guest_name: 'Bapak/Ibu/Saudara/i',
+            groom_name: 'Salman Al Zikri, S.Kom.',
+            bride_name: 'Diva Adellia, S.Pd.',
+            wedding_date: 'Minggu, 15 Maret 2026',
+            wedding_time: '11:00 - 14:00 WIB',
+            venue_name: 'Gedung Serbaguna Harmoni',
+            venue_address: 'Jl. Kebahagiaan No. 456, Jakarta Selatan',
+            invitation_message: 'Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan acara pernikahan kami'
+        };
+        
+        // Current config reference - with URL parameter override
+        let config = { ...defaultConfig };
+        const urlGuestName = getGuestNameFromURL();
+        if (urlGuestName) {
+            config.guest_name = urlGuestName;
+        }
+
+        // Update cover guest name immediately when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const coverGuestName = document.getElementById('cover-guest-name');
+            if (coverGuestName && config.guest_name) {
+                coverGuestName.textContent = config.guest_name;
+            }
+        });
+        
+        // Open invitation function
+        function openInvitation() {
+            document.getElementById('cover-section').style.display = 'none';
+            document.getElementById('main-content').classList.remove('hidden');
+            startCountdown();
+        }
+        
+        // Countdown function
+        let countdownInterval;
+        function startCountdown() {
+            // Gunakan tanggal dari config: "Sabtu, 15 Maret 2026" diubah ke format Date
+            // Format: Hari, Tanggal Bulan Tahun
+            const weddingDate = new Date('2026-03-15T08:00:00');
+            
+            function updateCountdown() {
+                const now = new Date();
+                const diff = weddingDate - now;
+                
+                if (diff > 0) {
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    
+                    document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
+                    document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+                    document.getElementById('countdown-minutes').textContent = String(minutes).padStart(2, '0');
+                    document.getElementById('countdown-seconds').textContent = String(seconds).padStart(2, '0');
+                } else {
+                    // Jika tanggal sudah terlewat
+                    document.getElementById('countdown-days').textContent = '00';
+                    document.getElementById('countdown-hours').textContent = '00';
+                    document.getElementById('countdown-minutes').textContent = '00';
+                    document.getElementById('countdown-seconds').textContent = '00';
+                }
+            }
+            
+            updateCountdown();
+            countdownInterval = setInterval(updateCountdown, 1000);
+        }
+        
+        // RSVP form handling
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('guest-name').value;
+            const message = document.getElementById('guest-message').value;
+            
+            if (name && message) {
+                // Add wish to display
+                const wishesContainer = document.getElementById('wishes-container');
+                const newWish = document.createElement('div');
+                newWish.className = 'card-elegant p-4 animate-fade-in-up';
+                newWish.innerHTML = `
+                    <p class="font-body text-sm font-medium mb-1">${name}</p>
+                    <p class="font-body text-sm opacity-70">${message}</p>
+                `;
+                wishesContainer.insertBefore(newWish, wishesContainer.firstChild);
+            }
+            
+            // Show success message
+            document.getElementById('rsvp-form').classList.add('hidden');
+            document.getElementById('rsvp-success').classList.remove('hidden');
+            
+            // Reset form after delay
+            setTimeout(() => {
+                document.getElementById('rsvp-form').reset();
+                document.getElementById('rsvp-form').classList.remove('hidden');
+                document.getElementById('rsvp-success').classList.add('hidden');
+            }, 3000);
+        });
+        
+        // Config change handler
+        async function onConfigChange(newConfig) {
+            config = { ...defaultConfig, ...newConfig };
+            
+            // Update CSS variables
+            document.documentElement.style.setProperty('--color-background', config.background_color);
+            document.documentElement.style.setProperty('--color-surface', config.surface_color);
+            document.documentElement.style.setProperty('--color-text', config.text_color);
+            document.documentElement.style.setProperty('--color-primary', config.primary_color);
+            document.documentElement.style.setProperty('--color-secondary', config.secondary_color);
+            
+            // Update body text color
+            document.body.style.color = config.text_color;
+            
+            // Update fonts
+            const customFont = config.font_family || defaultConfig.font_family;
+            const baseFontStack = 'Georgia, serif';
+            const bodyFontStack = 'Arial, sans-serif';
+            
+            document.querySelectorAll('.font-display').forEach(el => {
+                el.style.fontFamily = `${customFont}, ${baseFontStack}`;
+            });
+            
+            // Update font sizes
+            const baseSize = config.font_size || defaultConfig.font_size;
+            document.querySelectorAll('.font-body').forEach(el => {
+                const currentSize = window.getComputedStyle(el).fontSize;
+                // Keep relative sizing
+            });
+            
+            // Get name parts for display
+            const groomFirst = (config.groom_name || defaultConfig.groom_name).split(' ')[0];
+            const brideFirst = (config.bride_name || defaultConfig.bride_name).split(' ')[0];
+            
+            // Update guest name on cover
+            const coverGuestName = document.getElementById('cover-guest-name');
+            if (coverGuestName) {
+                coverGuestName.textContent = config.guest_name || defaultConfig.guest_name;
+            }
+            
+            // Update cover names
+            const coverNames = document.getElementById('cover-names');
+            if (coverNames) {
+                coverNames.innerHTML = `${groomFirst}<br><span class="text-3xl md:text-4xl font-normal italic">&</span><br>${brideFirst}`;
+            }
+            
+            // Update cover date
+            const coverDate = document.getElementById('cover-date');
+            if (coverDate) {
+                coverDate.textContent = config.wedding_date || defaultConfig.wedding_date;
+            }
+            
+            // Update groom name
+            const groomNameEl = document.getElementById('groom-name');
+            if (groomNameEl) {
+                groomNameEl.textContent = config.groom_name || defaultConfig.groom_name;
+            }
+            
+            // Update bride name
+            const brideNameEl = document.getElementById('bride-name');
+            if (brideNameEl) {
+                brideNameEl.textContent = config.bride_name || defaultConfig.bride_name;
+            }
+            
+            // Update invitation message
+            const invitationMsg = document.getElementById('invitation-message');
+            if (invitationMsg) {
+                invitationMsg.textContent = config.invitation_message || defaultConfig.invitation_message;
+            }
+            
+            // Update dates
+            const akadDate = document.getElementById('akad-date');
+            const resepsiDate = document.getElementById('resepsi-date');
+            if (akadDate) akadDate.textContent = config.wedding_date || defaultConfig.wedding_date;
+            if (resepsiDate) resepsiDate.textContent = config.wedding_date || defaultConfig.wedding_date;
+            
+            // Update time
+            const resepsiTime = document.getElementById('resepsi-time');
+            if (resepsiTime) {
+                resepsiTime.textContent = `Pukul ${config.wedding_time || defaultConfig.wedding_time}`;
+            }
+            
+            // Update venue
+            const venueName = document.getElementById('venue-name');
+            const venueAddress = document.getElementById('venue-address');
+            if (venueName) venueName.textContent = config.venue_name || defaultConfig.venue_name;
+            if (venueAddress) venueAddress.textContent = config.venue_address || defaultConfig.venue_address;
+            
+            // Update footer names
+            const footerNames = document.getElementById('footer-names');
+            if (footerNames) {
+                footerNames.textContent = `${groomFirst} & ${brideFirst}`;
+            }
+        }
+        
+        // Map to capabilities for color/font editing
+        function mapToCapabilities(config) {
+            return {
+                recolorables: [
+                    {
+                        get: () => config.background_color || defaultConfig.background_color,
+                        set: (value) => {
+                            config.background_color = value;
+                            if (window.elementSdk) window.elementSdk.setConfig({ background_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.surface_color || defaultConfig.surface_color,
+                        set: (value) => {
+                            config.surface_color = value;
+                            if (window.elementSdk) window.elementSdk.setConfig({ surface_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.text_color || defaultConfig.text_color,
+                        set: (value) => {
+                            config.text_color = value;
+                            if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.primary_color || defaultConfig.primary_color,
+                        set: (value) => {
+                            config.primary_color = value;
+                            if (window.elementSdk) window.elementSdk.setConfig({ primary_color: value });
+                        }
+                    },
+                    {
+                        get: () => config.secondary_color || defaultConfig.secondary_color,
+                        set: (value) => {
+                            config.secondary_color = value;
+                            if (window.elementSdk) window.elementSdk.setConfig({ secondary_color: value });
+                        }
+                    }
+                ],
+                borderables: [],
+                fontEditable: {
+                    get: () => config.font_family || defaultConfig.font_family,
+                    set: (value) => {
+                        config.font_family = value;
+                        if (window.elementSdk) window.elementSdk.setConfig({ font_family: value });
+                    }
+                },
+                fontSizeable: {
+                    get: () => config.font_size || defaultConfig.font_size,
+                    set: (value) => {
+                        config.font_size = value;
+                        if (window.elementSdk) window.elementSdk.setConfig({ font_size: value });
+                    }
+                }
+            };
+        }
+        
+        // Map to edit panel values
+        function mapToEditPanelValues(config) {
+            return new Map([
+                ['guest_name', config.guest_name || defaultConfig.guest_name],
+                ['groom_name', config.groom_name || defaultConfig.groom_name],
+                ['bride_name', config.bride_name || defaultConfig.bride_name],
+                ['wedding_date', config.wedding_date || defaultConfig.wedding_date],
+                ['wedding_time', config.wedding_time || defaultConfig.wedding_time],
+                ['venue_name', config.venue_name || defaultConfig.venue_name],
+                ['venue_address', config.venue_address || defaultConfig.venue_address],
+                ['invitation_message', config.invitation_message || defaultConfig.invitation_message]
+            ]);
+        }
+        
+        // Initialize Element SDK
+        if (window.elementSdk) {
+            window.elementSdk.init({
+                defaultConfig,
+                onConfigChange,
+                mapToCapabilities,
+                mapToEditPanelValues
+            });
+        }
+        
+        // Update guest name on cover immediately
+        const coverGuestName = document.getElementById('cover-guest-name');
+        if (coverGuestName && config.guest_name !== defaultConfig.guest_name) {
+            coverGuestName.textContent = config.guest_name;
+        }
+        
+        // Initial render
+        onConfigChange(defaultConfig);
+    </script>
+</body>
+</html>

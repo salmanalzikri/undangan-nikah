@@ -536,13 +536,20 @@
             config.guest_name = urlGuestName;
         }
 
-        // Update cover guest name immediately when page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        // Update cover guest name immediately
+        function updateCoverGuestName() {
             const coverGuestName = document.getElementById('cover-guest-name');
             if (coverGuestName && config.guest_name) {
                 coverGuestName.textContent = config.guest_name;
             }
-        });
+        }
+
+        // Update when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', updateCoverGuestName);
+        } else {
+            updateCoverGuestName();
+        }
         
         // Open invitation function
         function openInvitation() {
@@ -791,12 +798,6 @@
                 mapToCapabilities,
                 mapToEditPanelValues
             });
-        }
-        
-        // Update guest name on cover immediately
-        const coverGuestName = document.getElementById('cover-guest-name');
-        if (coverGuestName && config.guest_name !== defaultConfig.guest_name) {
-            coverGuestName.textContent = config.guest_name;
         }
         
         // Initial render

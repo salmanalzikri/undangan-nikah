@@ -21,13 +21,15 @@
             font-family: 'Montserrat', Arial, sans-serif;
         }
         
-        /* Color Variables */
+        /* Color Variables - Minangkabau Theme */
         :root {
-            --color-background: #faf7f2;
+            --color-background: #f8f4f0;
             --color-surface: #ffffff;
-            --color-text: #2d3436;
-            --color-primary: #8b7355;
-            --color-secondary: #c9a87c;
+            --color-text: #2d1b1b;
+            --color-primary: #8b2635; /* Maroon - traditional Minangkabau color */
+            --color-secondary: #d4af37; /* Gold */
+            --color-accent: #1a1a1a; /* Black for contrast */
+            --color-pattern: #8b2635; /* For decorative patterns */
         }
         
         /* Background Gradient */
@@ -35,14 +37,56 @@
             background: linear-gradient(135deg, var(--color-background) 0%, #f5efe6 50%, var(--color-background) 100%);
         }
         
-        /* Decorative Elements */
+        /* Decorative Elements - Minangkabau Theme */
         .ornament {
             opacity: 0.6;
         }
-        
+
         .ornament-line {
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--color-secondary), transparent);
+        }
+
+        /* Minangkabau Traditional Patterns */
+        .minang-pattern {
+            background-image:
+                radial-gradient(circle at 25% 25%, var(--color-secondary) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, var(--color-primary) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+
+        .gonjong-decoration {
+            position: relative;
+        }
+
+        .gonjong-decoration::before {
+            content: '🏛️';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        /* Traditional Minangkabau Ornaments */
+        .minang-ornament {
+            background: linear-gradient(45deg, var(--color-secondary), var(--color-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        .minang-ornament::after {
+            content: 'ꦲꦤꦺꦴꦏ꧀';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 0.8em;
+            opacity: 0.5;
+            color: var(--color-secondary);
         }
         
         /* Animations */
@@ -71,6 +115,54 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
+
+        @keyframes minangDance {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(2deg) scale(1.02); }
+            50% { transform: rotate(-2deg) scale(1.05); }
+            75% { transform: rotate(1deg) scale(1.02); }
+        }
+
+        @keyframes traditionalFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(1deg); }
+            66% { transform: translateY(-8px) rotate(-1deg); }
+        }
+
+        @keyframes gonjongGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.6); }
+        }
+
+        @keyframes rumahAdatFloat {
+            0%, 100% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            25% {
+                transform: translateY(-10px) scale(1.02) rotate(0.5deg);
+                opacity: 0.9;
+            }
+            50% {
+                transform: translateY(-20px) scale(1.05) rotate(0deg);
+                opacity: 1;
+            }
+            75% {
+                transform: translateY(-10px) scale(1.02) rotate(-0.5deg);
+                opacity: 0.9;
+            }
+        }
+
+        @keyframes rumahAdatPulse {
+            0%, 100% {
+                transform: scale(1);
+                filter: brightness(1);
+            }
+            50% {
+                transform: scale(1.1);
+                filter: brightness(1.2);
+            }
+        }
         
         .animate-fade-in-up {
             animation: fadeInUp 1s ease-out forwards;
@@ -86,6 +178,26 @@
         
         .animate-float {
             animation: float 4s ease-in-out infinite;
+        }
+
+        .animate-minang-dance {
+            animation: minangDance 3s ease-in-out infinite;
+        }
+
+        .animate-traditional-float {
+            animation: traditionalFloat 5s ease-in-out infinite;
+        }
+
+        .animate-gonjong-glow {
+            animation: gonjongGlow 4s ease-in-out infinite;
+        }
+
+        .animate-rumah-adat-float {
+            animation: rumahAdatFloat 6s ease-in-out infinite;
+        }
+
+        .animate-rumah-adat-pulse {
+            animation: rumahAdatPulse 4s ease-in-out infinite;
         }
         
         .delay-200 { animation-delay: 0.2s; }
@@ -293,6 +405,13 @@
     <div class="heart-float bottom-32 left-20 text-2xl" style="animation-delay: 4s;">
      🌸
     </div>
+    <!-- Animated Minangkabau Traditional House -->
+    <div class="absolute top-16 right-8 text-6xl animate-rumah-adat-float opacity-20" style="animation-delay: 1s;">
+     🏛️
+    </div>
+    <div class="absolute bottom-20 right-16 text-4xl animate-rumah-adat-pulse opacity-15" style="animation-delay: 3s;">
+     🏘️
+    </div>
     <div class="text-center animate-fade-in-up max-w-lg"><!-- Ornament Top -->
      <div class="ornament text-4xl mb-6 animate-float">
       🕊️
@@ -315,10 +434,10 @@
       <p id="invitation-message" class="font-body text-base leading-relaxed mb-12 opacity-80">Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan acara pernikahan kami</p>
       <div class="card-elegant p-8 md:p-12"><!-- Groom -->
        <div class="mb-8">
-        <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4" style="border-color: var(--color-secondary);">
+        <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 animate-minang-dance" style="border-color: var(--color-secondary);">
          <img id="groom-photo" src="photos/groom.jpg" alt="Mempelai Pria" class="w-full h-full object-cover">
         </div>
-        <h2 id="groom-name" class="font-display text-3xl font-bold mb-2" style="color: var(--color-primary);">Salman Al Zikri, S.Kom.</h2>
+        <h2 id="groom-name" class="font-display text-3xl font-bold mb-2" style="color: var(--color-primary);">Al Zikri, S.Kom.</h2>
         <p class="font-body text-sm opacity-70">Putra dari Bapak Ramajaya &amp; Ibu IRDA</p>
        </div><!-- Ampersand -->
        <div class="text-5xl font-display italic my-6" style="color: var(--color-secondary);">
@@ -328,7 +447,7 @@
         <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4" style="border-color: var(--color-secondary);">
          <img id="bride-photo" src="photos/bride.jpg" alt="Mempelai Wanita" class="w-full h-full object-cover">
         </div>
-        <h2 id="bride-name" class="font-display text-3xl font-bold mb-2" style="color: var(--color-primary);">Diva Adellia, S.Pd.</h2>
+        <h2 id="bride-name" class="font-display text-3xl font-bold mb-2" style="color: var(--color-primary);">Adellia S.Pd.</h2>
         <p class="font-body text-sm opacity-70">Putri dari Bapak H. Abdullah &amp; Ibu Hj. Fatimah</p>
        </div>
       </div>
@@ -507,21 +626,22 @@
             return null;
         }
         
-        // Default Configuration
+        // Default Configuration - Minangkabau Theme
         const defaultConfig = {
             // Colors
-            background_color: '#faf7f2',
+            background_color: '#f8f4f0',
             surface_color: '#ffffff',
-            text_color: '#2d3436',
-            primary_color: '#8b7355',
-            secondary_color: '#c9a87c',
+            text_color: '#2d1b1b',
+            primary_color: '#8b2635', /* Maroon - traditional Minangkabau color */
+            secondary_color: '#d4af37', /* Gold */
+            accent_color: '#1a1a1a', /* Black for contrast */
             // Fonts
             font_family: 'Cormorant Garamond',
             font_size: 16,
             // Content
             guest_name: 'Bapak/Ibu/Saudara/i',
-            groom_name: 'Salman Al Zikri, S.Kom.',
-            bride_name: 'Diva Adellia, S.Pd.',
+            groom_name: 'Al Zikri, S.Kom.',
+            bride_name: 'Adellia S.Pd.',
             wedding_date: 'Minggu, 15 Maret 2026',
             wedding_time: '11:00 - 14:00 WIB',
             venue_name: 'Gedung Serbaguna Harmoni',
